@@ -1,0 +1,49 @@
+<html>
+<head>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="jquery.complexform.js"></script>
+<script type="text/javascript" src="form.js"></script>
+<title>Realty Selection demo</title>
+</head>
+<body>
+
+<form name="searchFilter">
+
+	<select name="estate_type" id="estate_type">
+		<option value="1" class="show_rooms">Buy an apartment</option>
+		<option value="2" class="show_rooms">Rent an apartment</option>
+		<option value="3">Buy a house</option>
+		<option value="4">Rent a house</option>
+		<option value="5">Buy commercial estate</option>
+		<option value="6">Rent commercial estate</option>
+		<option value="7">Buy an industrial estate</option>
+		<option value="8">Rent an industrial estate</option>
+		<option value="9">Buy a lot</option>
+	</select>
+
+	<div id="subform_rooms">
+		<input type="checkbox" name="rooms_any" id="rooms_any" /> <label for="rooms_any">any number</label>
+		<input type="checkbox" name="rooms1" id="rooms1"/> <label for="rooms1">1 room</label>
+		<input type="checkbox" name="rooms2" id="rooms2"/> <label for="rooms2">2 rooms</label>
+		<input type="checkbox" name="rooms3" id="rooms3"/> <label for="rooms3">3 rooms</label>
+		<input type="checkbox" name="rooms4" id="rooms4"/> <label for="rooms4">4 rooms</label>
+		<input type="checkbox" name="rooms5" id="rooms5"/> <label for="rooms5">5 or more</label>
+	</div>
+
+	<div class="subform_area">
+		<input type="radio" name="units" value="m" id="units_metres" /> <label for="units_metres">square metres</label>
+		<input type="radio" name="units" value="f" id="units_feet" /> <label for="units_feet">square feet</label>
+	</div>
+
+<input  type="text" class="required" name="comment" id="comment"/>
+
+</form>
+<script type="text/javascript">
+
+</script>
+
+</body>
+
+
+
+</html>
