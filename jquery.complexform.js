@@ -78,8 +78,15 @@ jQuery.fn.cond = function() { // example: positive = function(x) { return x > 0 
 		var _tgt = $(tgt),
 			check = cond($(_this).valOrChecked()) // get the value and get true/false from condition function
 		
-		if (check && _tgt.is(':hidden')) { _tgt.show() }
-		else if (!check && _tgt.is(':visible')) { _tgt.hide() }
+		/* .changeable() in condition is a hack for Opera 10 */
+		if (check && _this.changeable().is(':visible') && _tgt.is(':hidden')) {
+			_tgt.show(500)
+			_tgt.trigger('change')
+		}
+		else if ((!check || _this.changeable().is(':hidden')) && _tgt.is(':visible')) {
+			_tgt.hide(500)
+			_tgt.trigger('change')
+		}
 	})
 	this.trigger('change') // some elements need to be hidden right away
 	return this
