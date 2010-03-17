@@ -79,11 +79,11 @@ jQuery.fn.cond = function() { // example: positive = function(x) { return x > 0 
 			check = cond($(_this).valOrChecked()) // get the value and get true/false from condition function
 		
 		/* .changeable() in condition is a hack for Opera 10 */
-		if (check && _this.changeable().is(':visible') && _tgt.is(':hidden')) {
+		if (check && (_this.changeable().is(':visible') || _this.is('[type=hidden]')) && _tgt.is(':hidden')) {
 			_tgt.show(200)
 			_tgt.trigger('change')
 		}
-		else if ((!check || _this.changeable().is(':hidden')) && _tgt.is(':visible')) {
+		else if ((!check || (_this.is('[type!=hidden]') && _this.changeable().is(':hidden'))) && _tgt.is(':visible')) {
 			_tgt.hide() // safe this way
 			_tgt.trigger('change')
 		}
