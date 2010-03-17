@@ -115,8 +115,12 @@ $(function() {
 	$('#estate_type').cond('2', '[for=inet],[for=furniture],[for=tv],[for=fridge],[for=laundry]')
 	$('#rooms_any').change(function() {
 		if (this.checked)
-			$(this).siblings().or_self().removeAttr('checked')
-		})
+			$('#subform_rooms > input[name^=rooms]').removeAttr('checked')
+	})
+	$('#floors0').change(function() {
+		if (this.checked)
+			$('input[name^=floors]:checkbox').removeAttr('checked')
+	})
 	$('select[name=region]').cond(77, '#77').cond(54, '#54').cond(24, '#24')
 	$('#54_city_select').cond('#54_city')
 	
