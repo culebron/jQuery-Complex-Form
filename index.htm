@@ -12,12 +12,12 @@
 	I want to <select name="estate_type" id="estate_type">
 		<option value="1" class="show_rooms">Buy an apartment</option>
 		<option value="2" class="show_rooms">Rent an apartment</option>
-		<option value="3">Buy a house</option>
-		<option value="4">Rent a house</option>
-		<option value="5">Buy commercial estate</option>
-		<option value="6">Rent commercial estate</option>
-		<option value="7">Buy an industrial estate</option>
-		<option value="8">Rent an industrial estate</option>
+		<option value="3" class="show_area">Buy a house</option>
+		<option value="4" class="show_area">Rent a house</option>
+		<option value="5" class="show_area">Buy commercial estate</option>
+		<option value="6" class="show_area">Rent commercial estate</option>
+		<option value="7" class="show_area">Buy an industrial estate</option>
+		<option value="8" class="show_area">Rent an industrial estate</option>
 		<option value="9">Buy a lot</option>
 	</select>
 
@@ -91,7 +91,8 @@
 </form>
 <script type="text/javascript">
 $(function() {
-	$('#estate_type').cond('<3', '#subform_rooms,#subform_features').cond('>2', '#subform_area')
+	$('#estate_type').cond('<3', '#subform_rooms,#subform_features')
+	$('.show_area').cond('#subform_area')
 	$('#estate_type').cond('2', '[for=inet],[for=furniture],[for=tv],[for=fridge],[for=laundry]')
 	$('#rooms_any').change(function() {
 		if (this.checked)
