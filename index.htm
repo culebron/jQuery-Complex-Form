@@ -13,34 +13,9 @@
 		<option value="1" class="show_rooms">Buy an apartment</option>
 		<option value="2" class="show_rooms">Rent an apartment</option>
 		<option value="3" class="show_area">Buy a house</option>
-		<option value="6" class="show_area">Rent commercial estate</option>
-		<option value="9">Buy a land lot</option>
+		<option value="4" class="show_area">Rent commercial estate</option>
+		<option value="5">Buy a land lot</option>
 	</select>
-
-	<div class="subform" id="subform_rooms">
-		<input type="checkbox" name="rooms[0]" id="rooms_any" /> <label for="rooms_any">any number</label><br />
-		<input type="checkbox" name="rooms[1]" id="rooms1"/> <label for="rooms1">1 room</label><br />
-		<input type="checkbox" name="rooms[2]" id="rooms2"/> <label for="rooms2">2 rooms</label><br />
-		<input type="checkbox" name="rooms[3]" id="rooms3"/> <label for="rooms3">3 rooms</label><br />
-		<input type="checkbox" name="rooms[4]" id="rooms4"/> <label for="rooms4">4 rooms</label><br />
-		<input type="checkbox" name="rooms[5]" id="rooms5"/> <label for="rooms5">5 or more</label><br />
-	</div>
-
-	<div class="subform" id="subform_features">
-		Features: 
-		<label for="inet"><input type="checkbox" name="inet" id="inet"/> Internet</label>
-		<label for="phone"><input type="checkbox" name="phone" id="phone"/> phone</label>
-		<label for="furniture"><input type="checkbox" name="furniture" id="furniture"/> furniture</label>
-		<label for="tv"><input type="checkbox" name="tv" id="tv"/> TV</label>
-		<label for="fridge"><input type="checkbox" name="fridge" id="fridge"/> fridge</label>
-		<label for="tv"><input type="checkbox" name="laundry" id="laundry"/> laundry</label>
-	</div>
-
-	<div class="subform" id="subform_area">
-		Area from <input type="text" name="area[]" value="0" maxlength="5" size="5"/> to <input type="text" name="area[]" value="" maxlength="5" size="5"/> (leave empty if doesn't matter) <br />
-		<input type="radio" name="units" value="m" id="units_metres" checked="yes"/> <label for="units_metres">square metres</label>
-		<input type="radio" name="units" value="f" id="units_feet"/> <label for="units_feet">square feet</label>
-	</div>
 
 	<div class="subform">
 		Location: <br />
@@ -81,6 +56,51 @@
 			<option value="6">Lesosibirsk</option>
 		</select>
 
+	</div><br clear="all"/>
+
+	<div class="subform" id="subform_rooms">
+		<input type="checkbox" name="rooms[0]" id="rooms_any" /> <label for="rooms_any">any number</label><br />
+		<input type="checkbox" name="rooms[1]" id="rooms1"/> <label for="rooms1">1 room</label><br />
+		<input type="checkbox" name="rooms[2]" id="rooms2"/> <label for="rooms2">2 rooms</label><br />
+		<input type="checkbox" name="rooms[3]" id="rooms3"/> <label for="rooms3">3 rooms</label><br />
+		<input type="checkbox" name="rooms[4]" id="rooms4"/> <label for="rooms4">4 rooms</label><br />
+		<input type="checkbox" name="rooms[5]" id="rooms5"/> <label for="rooms5">5 or more</label><br />
+	</div>
+
+	<div class="subform" id="subform_features">
+		Features: 
+		<label for="inet"><input type="checkbox" name="inet" id="inet"/> Internet</label>
+		<label for="phone"><input type="checkbox" name="phone" id="phone"/> phone</label>
+		<label for="furniture"><input type="checkbox" name="furniture" id="furniture"/> furniture</label>
+		<label for="tv"><input type="checkbox" name="tv" id="tv"/> TV</label>
+		<label for="fridge"><input type="checkbox" name="fridge" id="fridge"/> fridge</label>
+		<label for="tv"><input type="checkbox" name="laundry" id="laundry"/> laundry</label>
+	</div>
+
+	<div class="subform" id="subform_area" style="display:none">
+		Area from <input type="text" name="area[]" value="0" maxlength="5" size="5"/> to <input type="text" name="area[]" value="" maxlength="5" size="5"/> <br />(leave empty if doesn't matter) <br />
+		<input type="radio" name="units" value="m" id="units_metres" checked="yes"/> <label for="units_metres">square metres</label>
+		<input type="radio" name="units" value="f" id="units_feet"/> <label for="units_feet">square feet</label>
+	</div>
+	
+	<div class="subform" id="subform_floors" style="display:none">
+		Floors:<br />
+		<label for="floors0"><input type="checkbox" name="floors[0]" id="floors0"/> any </label><br />
+		<label for="floors5"><input type="checkbox" name="floors[5]" id="floors5"/> with basement</label><br />
+		<label for="floors1"><input type="checkbox" name="floors[1]" id="floors1"/> 1</label><br />
+		<label for="floors2"><input type="checkbox" name="floors[2]" id="floors2"/> 1.5</label><br />
+		<label for="floors3"><input type="checkbox" name="floors[3]" id="floors3"/> 2</label><br />
+		<label for="floors4"><input type="checkbox" name="floors[4]" id="floors4"/> 3</label><br />
+	</div>
+	
+	<div class="subform" id="subform_use" style="display:none">
+		Use: <br />
+		<label for="use0"><input type="radio" name="use" id="use0"/> services </label><br />
+		<label for="use1"><input type="radio" name="use" id="use1"/> small shops </label><br />
+		<label for="use2"><input type="radio" name="use" id="use2"/> supermarket </label><br />
+		<label for="use3"><input type="radio" name="use" id="use3"/> offices </label><br />
+		<label for="use4"><input type="radio" name="use" id="use4"/> congress and exhibitions </label><br />
+		<label for="use5"><input type="radio" name="use" id="use5"/> restaurants &amp; cafes </label><br />
 	</div>
 	
 	<div class="subform" id="area_hectares" style="display:none">
@@ -90,12 +110,12 @@
 </form>
 <script type="text/javascript">
 $(function() {
-	$('#estate_type').cond('<3', '#subform_rooms,#subform_features').cond(9, '#area_hectares')
+	$('#estate_type').cond('<3', '#subform_rooms,#subform_features').cond(3, '#subform_floors').cond(5, '#area_hectares').cond(4, '#subform_use')
 	$('.show_area').cond('#subform_area')
 	$('#estate_type').cond('2', '[for=inet],[for=furniture],[for=tv],[for=fridge],[for=laundry]')
 	$('#rooms_any').change(function() {
 		if (this.checked)
-			$('#subform_rooms > input[name^=rooms]').removeAttr('checked')
+			$(this).siblings().or_self().removeAttr('checked')
 		})
 	$('select[name=region]').cond(77, '#77').cond(54, '#54').cond(24, '#24')
 	$('#54_city_select').cond('#54_city')
