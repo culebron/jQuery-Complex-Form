@@ -74,7 +74,7 @@ jQuery.fn.cond = function() { // example: positive = function(x) { return x > 0 
 	}
 	
 	var _this = this
-	this.changeable().bind('change', function() {
+	this.changeable().change(function() {
 		var _tgt = $(tgt),
 			check = cond($(_this).valOrChecked()) // get the value and get true/false from condition function
 		
