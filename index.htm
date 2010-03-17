@@ -13,12 +13,8 @@
 		<option value="1" class="show_rooms">Buy an apartment</option>
 		<option value="2" class="show_rooms">Rent an apartment</option>
 		<option value="3" class="show_area">Buy a house</option>
-		<option value="4" class="show_area">Rent a house</option>
-		<option value="5" class="show_area">Buy commercial estate</option>
 		<option value="6" class="show_area">Rent commercial estate</option>
-		<option value="7" class="show_area">Buy an industrial estate</option>
-		<option value="8" class="show_area">Rent an industrial estate</option>
-		<option value="9">Buy a lot</option>
+		<option value="9">Buy a land lot</option>
 	</select>
 
 	<div class="subform" id="subform_rooms">
@@ -54,7 +50,6 @@
 			<option value="24">Krasnoyarsk &gt;&gt;</option>
 		</select>
 		
-		
 		<select id="77" multiple="yes" size="5" style="display:none">
 			<option value="1">Moscow region</option>
 			<option value="2">Moscow city</option>
@@ -87,11 +82,15 @@
 		</select>
 
 	</div>
+	
+	<div class="subform" id="area_hectares" style="display:none">
+		Area: from <input type="text" name="hectares[]" value="0" size="4"/> to <input type="text" name="hectares[]" size="4" /> hectares.
+	</div>
 
 </form>
 <script type="text/javascript">
 $(function() {
-	$('#estate_type').cond('<3', '#subform_rooms,#subform_features')
+	$('#estate_type').cond('<3', '#subform_rooms,#subform_features').cond(9, '#area_hectares')
 	$('.show_area').cond('#subform_area')
 	$('#estate_type').cond('2', '[for=inet],[for=furniture],[for=tv],[for=fridge],[for=laundry]')
 	$('#rooms_any').change(function() {
@@ -100,6 +99,7 @@ $(function() {
 		})
 	$('select[name=region]').cond(77, '#77').cond(54, '#54').cond(24, '#24')
 	$('#54_city_select').cond('#54_city')
+	
 })
 </script>
 
