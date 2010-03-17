@@ -99,20 +99,24 @@
 		<label for="use1"><input type="radio" name="use" id="use1"/> small shops </label><br />
 		<label for="use2"><input type="radio" name="use" id="use2"/> supermarket </label><br />
 		<label for="use3"><input type="radio" name="use" id="use3"/> offices </label><br />
-		<label for="use4"><input type="radio" name="use" id="use4"/> congress and exhibitions </label><br />
+		<label for="use4"><input type="radio" name="use" id="use4"/> congress &amp; exhibitions </label><br />
 		<label for="use5"><input type="radio" name="use" id="use5"/> restaurants &amp; cafes </label><br />
 	</div>
 	
 	<div class="subform" id="area_hectares" style="display:none">
 		Area: from <input type="text" name="hectares[]" value="0" size="4"/> to <input type="text" name="hectares[]" size="4" /> hectares.
 	</div>
-
+	
 </form>
 <script type="text/javascript">
 $(function() {
 	$('#estate_type').cond('<3', '#subform_rooms,#subform_features').cond(3, '#subform_floors').cond(5, '#area_hectares').cond(4, '#subform_use')
 	$('.show_area').cond('#subform_area')
 	$('#estate_type').cond('2', '[for=inet],[for=furniture],[for=tv],[for=fridge],[for=laundry]')
+	$('select[name=region]').cond(77, '#77').cond(54, '#54').cond(24, '#24')
+	$('#54_city_select').cond('#54_city')
+	$('#x').cond(10, '#test')
+
 	$('#rooms_any').change(function() {
 		if (this.checked)
 			$('#subform_rooms > input[name^=rooms]').removeAttr('checked')
@@ -121,9 +125,6 @@ $(function() {
 		if (this.checked)
 			$('input[name^=floors]:checkbox').removeAttr('checked')
 	})
-	$('select[name=region]').cond(77, '#77').cond(54, '#54').cond(24, '#24')
-	$('#54_city_select').cond('#54_city')
-	
 })
 </script>
 
