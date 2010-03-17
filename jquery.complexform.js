@@ -1,14 +1,9 @@
-/*jQuery.fn.depend = function(obj, cond) {
-	if (typeof(obj) != "object")
-		return this
-	
-	if (undefined == condition) { // просто проверить, что объект не пуст или что выбран
-		var checkboxes = $(obj).filter('input').filter('[type=checkbox],[type=radio]') // checked
-		var options = $(obj).filter('option') // option selected
-		var other = $(obj).not(checkboxes).not(options) // the rest
-	}
-};*/
-
+/*
+ * Changeable
+ * For a given element set returns the element set that should be watched.
+ * E.g. input -> input itself, option -> select,
+ * input[type=radio] -> set of inputs with the same name.
+ */
 jQuery.fn.changeable = function() {
 	var res = [],
 		append = function(items) {
@@ -49,7 +44,7 @@ jQuery.fn.cond = function() { // example: positive = function(x) { return x > 0 
 	var _this = this
 	if (arguments[1] == undefined) { // either it's (tgt) or (cond, tgt)
 		var tgt = arguments[0],
-		cond = function(x) { return x ? true : false } // default comp. function: non-empty
+		cond = function(x) { return x ? true : false } // default comparison function: non-empty
 	}
 	else {
 		var cond = arguments[0],
@@ -60,7 +55,7 @@ jQuery.fn.cond = function() { // example: positive = function(x) { return x > 0 
 	if (tgt.length == 0)
 		return this
 	
-	if (typeof(cond) != 'function') { // if cond is already a function, proceed.
+	if (typeof(cond) != 'function') {
 		var functions = { // comparison functions.
 			'==': function (x, y) { return x == y }, // longer first!
 			'>=': function (x, y) { return x >= y },
@@ -79,7 +74,7 @@ jQuery.fn.cond = function() { // example: positive = function(x) { return x > 0 
 			}
 	}
 	
-	var _this = this
+	var _this = $(this)
 	this.changeable().bind('change', function() {
 		var _tgt = $(tgt),
 			check = cond($(_this).valOrChecked()) // get the value and get true/false from condition function
@@ -88,4 +83,18 @@ jQuery.fn.cond = function() { // example: positive = function(x) { return x > 0 
 		else if (!check && _tgt.is(':visible')) { _tgt.hide() }
 	})
 	this.trigger('change') // some elements need to be hidden right away
+	return this
 };
+
+$jQuery.fn.depend() {
+	if (arguments[1] == undefined) { // either it's (tgt) or (cond, tgt)
+		var src = arguments[0],
+		cond = function(x) { return x ? true : false } // default comparison function: non-empty
+	}
+	else {
+		var cond = arguments[0],
+		src = arguments[1]
+	}
+
+	return $(src).cond(cond, this)
+}
