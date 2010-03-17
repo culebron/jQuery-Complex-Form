@@ -41,7 +41,6 @@ jQuery.fn.valOrChecked = function() {
 };
 
 jQuery.fn.cond = function() { // example: positive = function(x) { return x > 0 }
-	var _this = this
 	if (arguments[1] == undefined) { // either it's (tgt) or (cond, tgt)
 		var tgt = arguments[0],
 		cond = function(x) { return x ? true : false } // default comparison function: non-empty
@@ -74,7 +73,7 @@ jQuery.fn.cond = function() { // example: positive = function(x) { return x > 0 
 			}
 	}
 	
-	var _this = $(this)
+	var _this = this
 	this.changeable().bind('change', function() {
 		var _tgt = $(tgt),
 			check = cond($(_this).valOrChecked()) // get the value and get true/false from condition function
@@ -86,7 +85,7 @@ jQuery.fn.cond = function() { // example: positive = function(x) { return x > 0 
 	return this
 };
 
-$jQuery.fn.depend() {
+jQuery.fn.depend = function() {
 	if (arguments[1] == undefined) { // either it's (tgt) or (cond, tgt)
 		var src = arguments[0],
 		cond = function(x) { return x ? true : false } // default comparison function: non-empty
@@ -97,4 +96,5 @@ $jQuery.fn.depend() {
 	}
 
 	return $(src).cond(cond, this)
-}
+};
+

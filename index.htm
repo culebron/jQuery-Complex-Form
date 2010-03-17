@@ -2,14 +2,14 @@
 <head>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
 <script type="text/javascript" src="jquery.complexform.js"></script>
-<script type="text/javascript" src="form.js"></script>
+<link rel="stylesheet" type="text/css" href="style.css" />
 <title>Realty Selection demo</title>
 </head>
 <body>
 
 <form name="searchFilter">
 
-	<select name="estate_type" id="estate_type">
+	I want to <select name="estate_type" id="estate_type">
 		<option value="1" class="show_rooms">Buy an apartment</option>
 		<option value="2" class="show_rooms">Rent an apartment</option>
 		<option value="3">Buy a house</option>
@@ -21,25 +21,85 @@
 		<option value="9">Buy a lot</option>
 	</select>
 
-	<div id="subform_rooms">
-		<input type="checkbox" name="rooms_any" id="rooms_any" /> <label for="rooms_any">any number</label>
-		<input type="checkbox" name="rooms1" id="rooms1"/> <label for="rooms1">1 room</label>
-		<input type="checkbox" name="rooms2" id="rooms2"/> <label for="rooms2">2 rooms</label>
-		<input type="checkbox" name="rooms3" id="rooms3"/> <label for="rooms3">3 rooms</label>
-		<input type="checkbox" name="rooms4" id="rooms4"/> <label for="rooms4">4 rooms</label>
-		<input type="checkbox" name="rooms5" id="rooms5"/> <label for="rooms5">5 or more</label>
+	<div class="subform" id="subform_rooms">
+		<input type="checkbox" name="rooms[0]" id="rooms_any" /> <label for="rooms_any">any number</label><br />
+		<input type="checkbox" name="rooms[1]" id="rooms1"/> <label for="rooms1">1 room</label><br />
+		<input type="checkbox" name="rooms[2]" id="rooms2"/> <label for="rooms2">2 rooms</label><br />
+		<input type="checkbox" name="rooms[3]" id="rooms3"/> <label for="rooms3">3 rooms</label><br />
+		<input type="checkbox" name="rooms[4]" id="rooms4"/> <label for="rooms4">4 rooms</label><br />
+		<input type="checkbox" name="rooms[5]" id="rooms5"/> <label for="rooms5">5 or more</label><br />
 	</div>
 
-	<div class="subform_area">
-		<input type="radio" name="units" value="m" id="units_metres" /> <label for="units_metres">square metres</label>
-		<input type="radio" name="units" value="f" id="units_feet" /> <label for="units_feet">square feet</label>
+	<div class="subform" id="subform_features">
+		Features: 
+		<label for="inet"><input type="checkbox" name="inet" id="inet"/> Internet</label>
+		<label for="phone"><input type="checkbox" name="phone" id="phone"/> phone</label>
+		<label for="furniture"><input type="checkbox" name="furniture" id="furniture"/> furniture</label>
+		<label for="tv"><input type="checkbox" name="tv" id="tv"/> TV</label>
+		<label for="fridge"><input type="checkbox" name="fridge" id="fridge"/> fridge</label>
+		<label for="tv"><input type="checkbox" name="laundry" id="laundry"/> laundry</label>
 	</div>
 
-<input  type="text" class="required" name="comment" id="comment"/>
+	<div class="subform" id="subform_area">
+		Area from <input type="text" name="area[]" value="0" maxlength="5" size="5"/> to <input type="text" name="area[]" value="" maxlength="5" size="5"/> (leave empty if doesn't matter) <br />
+		<input type="radio" name="units" value="m" id="units_metres" checked="yes"/> <label for="units_metres">square metres</label>
+		<input type="radio" name="units" value="f" id="units_feet"/> <label for="units_feet">square feet</label>
+	</div>
+
+	<div class="subform">
+		Location: <br />
+		<select name="region" multiple="yes" size="5">
+			<option value="77">Moscow &gt;&gt;</option>
+			<option value="54">Novosibirsk &gt;&gt;</option>
+			<option value="24">Krasnoyarsk &gt;&gt;</option>
+		</select>
+		
+		
+		<select id="77" multiple="yes" size="5" style="display:none">
+			<option value="1">Moscow region</option>
+			<option value="2">Moscow city</option>
+			<option value="3">Kremlin</option>
+		</select>
+		
+		<select id="54" style="display:none" multiple="yes" size="5">
+			<option id="54_city_select" value="1">Novosibirsk city and suburbs &gt;&gt;</option>
+			<option value="2">Berdsk</option>
+			<option value="3">Iskitim</option>
+			<option value="4">Kochenyovo</option>
+		</select>
+
+		<select id="54_city" style="display:none" multiple="yes" size="5">
+			<option value="1">Central district</option>
+			<option value="2">Zheleznodorozhniy district</option>
+			<option value="3">Sovetskiy district</option>
+			<option value="4">Krasno-obsk</option>
+			<option value="4">Koltsovo</option>
+			<option value="4">Pashino</option>
+		</select>
+
+		<select id="24" style="display:none" multiple="yes" size="5">
+			<option value="1">Krasnoyarsk city and suburbs</option>
+			<option value="2">Divnogorsk</option>
+			<option value="3">Achinsk</option>
+			<option value="4">Nazarovo</option>
+			<option value="5">Minusinsk</option>
+			<option value="6">Lesosibirsk</option>
+		</select>
+
+	</div>
 
 </form>
 <script type="text/javascript">
-
+$(function() {
+	$('#estate_type').cond('<3', '#subform_rooms,#subform_features').cond('>2', '#subform_area')
+	$('#estate_type').cond('2', '[for=inet],[for=furniture],[for=tv],[for=fridge],[for=laundry]')
+	$('#rooms_any').change(function() {
+		if (this.checked)
+			$('#subform_rooms > input[name^=rooms]').removeAttr('checked')
+		})
+	$('select[name=region]').cond(77, '#77').cond(54, '#54').cond(24, '#24')
+	$('#54_city_select').cond('#54_city')
+})
 </script>
 
 </body>
