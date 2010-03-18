@@ -81,7 +81,7 @@ jQuery.fn.cond = function() { // example: positive = function(x) { return x > 0 
 		/* .changeable() in condition is a hack for Opera 10 */
 		if (check && (_this.changeable().is(':visible') || _this.is('[type=hidden]')) && _tgt.is(':hidden')) {
 			_tgt.show(200)
-			_tgt.trigger('change').find('input,select,textarea').trigger('change')
+			_tgt.trigger('change').find('input,select,textarea').trigger('change') // trigger 'change' event on the dependent element and it's children
 		}
 		else if ((!check || (_this.is('[type!=hidden]') && _this.changeable().is(':hidden'))) && _tgt.is(':visible')) {
 			_tgt.hide() // safe this way
@@ -92,16 +92,17 @@ jQuery.fn.cond = function() { // example: positive = function(x) { return x > 0 
 	return this
 };
 
-jQuery.fn.depend = function() {
-	if (arguments[1] == undefined) { // either it's (tgt) or (cond, tgt)
-		var src = arguments[0],
-		cond = function(x) { return x ? true : false } // default comparison function: non-empty
-	}
-	else {
-		var cond = arguments[0],
-		src = arguments[1]
-	}
-
-	return $(src).cond(cond, this)
+/*
+ * Makes a selection depend on src, with condition cond. 
+ * @param src jquery selector, jquery object or a node
+ * @param cond condition (string or function)
+ */
+jQuery.fn.dependOn = function(src, cond) {
+	if (undefined == cond)
+		$(src).cond(this)
+	else
+		$(src).cond(cond, this)
+	
+	return this
 };
 
