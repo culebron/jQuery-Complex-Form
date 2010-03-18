@@ -1,0 +1,56 @@
+<html>
+<head><title>jQuery Complex Form Documentation</title>
+<link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+<body>
+<h1>jQuery Complex Form Documentation</h1>
+
+<p>jQuery Complex Form is a plugin that lets you make complex nested forms, in which a section or an input node can be shown or not shown depending on the value of another input.<br /><br />
+
+The usage is made as simple and brief as possible:</p>
+
+HTML:
+<pre>    &lt;select name="master">
+	    &lt;option value="1" id="option1">Show nested input&lt;/option>
+	    &lt;option value="2">Don't show it&lt;/option>
+    &lt;/select>
+    &lt;input type="text" name="nested" id="nested" value="input more here" />
+</pre>
+
+Javascript:
+<pre>    $(function() { $('#option1').cond('#nested') })</pre>
+
+<p>When #option1 is selected, #nested input shows, and vice-versa. Note that the rule is set as soon as the page has been loaded. The <span>cond</span> method sees that the main element is an <span>option</span>, not an input field, and binds the <span>change</span> event to its parent <span>select</span> (this is achieved with <span>changeable</span> method, which returns a set of nodes that need to be watched).<br/ ><br />
+More examples of usage:</p>
+
+<code>$('input[type=radio][name=X][value=Y]').cond('#nested1') // shows nested if radio button Y is checked<br />
+$('input[type=text]#id').cond('#nested2') // if text input is not empty<br />
+$('input#id').cond('!=test', '#nested5') // when value is not 'test'<br />
+$('select#id').cond('>=2', '#nested3') // if select's value is not less than 2<br />
+$('select#id').cond(function(x) { return x % 2 }, '#nested4') // shows #nested4 only when it's value is odd<br />
+$('option[value^=Russia]').cond(mynode) // will show mynode if any option that starts with 'Russia' is selected</code>
+
+<p>Here's the syntax:<br /><br />
+
+&nbsp;&nbsp;&nbsp;&nbsp;jqueryObject.cond([condition,] target)<br /><br />
+
+Sets a rule that <i>target</i> nodes and their dependent nodes [1] are shown when <b>any</b> [2] of <i>jqueryObject's</i> elements satisfy the <i>condition</i>.<br /><br />
+
+Returns <i>jqueryObject</i> as-is.<br /><br />
+
+The rule is checked and elements are shown or hidden when <span>change</span> event is triggered on elements in <span>jqueryObject.changeable()</span>.<br /><br />
+
+[1] Dependent means having this relation, like <i>target</i> is dependent on <i>jqueryObject</i><br />
+[2] If you need <i>target</i> to be shown when <b>all</b> of the main objects satisfy it, consider writing a custom funciton and supplying it as <i>condition</i>.
+</p>
+
+<p>The opposite method, dependOn:<br /><br />
+
+&nbsp;&nbsp;&nbsp;&nbsp;jQueryObject.dependOn([condition,] source)<br /><br />
+
+Calls <span>source.cond(condition, jQueryObject)</span>. Returns jQueryObject.<br /><br />
+
+</p>
+
+</body>
+</html>
