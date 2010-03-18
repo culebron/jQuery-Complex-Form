@@ -81,11 +81,11 @@ jQuery.fn.cond = function() { // example: positive = function(x) { return x > 0 
 		/* .changeable() in condition is a hack for Opera 10 */
 		if (check && (_this.changeable().is(':visible') || _this.is('[type=hidden]')) && _tgt.is(':hidden')) {
 			_tgt.show(200)
-			_tgt.trigger('change')
+			_tgt.trigger('change').find('input,select,textarea').trigger('change')
 		}
 		else if ((!check || (_this.is('[type!=hidden]') && _this.changeable().is(':hidden'))) && _tgt.is(':visible')) {
 			_tgt.hide() // safe this way
-			_tgt.trigger('change')
+			_tgt.trigger('change').find('input,select,textarea').trigger('change')
 		}
 	})
 	this.trigger('change') // some elements need to be hidden right away
