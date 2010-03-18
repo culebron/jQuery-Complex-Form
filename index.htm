@@ -3,9 +3,28 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
 <script type="text/javascript" src="jquery.complexform.js"></script>
 <link rel="stylesheet" type="text/css" href="style.css" />
-<title>Realty Selection demo</title>
+<title>Complex Nested Form with jQuery Demo</title>
 </head>
 <body>
+<h1>Complex Nested Form with jQuery Demo</h1>
+
+<p>This is a demo for potential employers of what I'm capable of.<br /><br />
+
+The form changes dynamically depending on what options you select. Try changing the 1st select box and see what happens. Note that elements can be nested on several levels, so that if a child form section has its own dependants, they are hidden or shown together with it (Choose "buy an apartment", check "I need mortgage" and then choose "rent an apartment" to see the effect).<br /><br />
+
+The Javascript code that makes this possible is my <a href="http://jquery.com">jQuery</a> plugin that does all the hard work, and the programmer needs only to add such a piece of code for each dependency rule:</p>
+
+<pre>$('#estate_type').cond('<3', '#subform_rooms,#subform_features')</pre>
+
+<p>Need several dependants for one select box? Not a problem:</p>
+
+<pre>$('#estate_type').cond('<3',
+    '#subform_rooms,#subform_features').cond(3,
+    '#subform_floors')</pre>
+
+<p>There's a brief <a href="doc.htm">documentation for programmers</a>.<br /><br />
+
+<a href="mailto:detail@ngs.ru">Dmitri Lebedev</a>, 18.03.2010</p>
 
 <form name="searchFilter">
 
@@ -107,15 +126,30 @@
 		Area: from <input type="text" name="hectares[]" value="0" size="4"/> to <input type="text" name="hectares[]" size="4" /> hectares.
 	</div>
 	
+	<div class="subform" id="subform_need_mortgage" style="display:none">
+		<label for="mortgage"><input type="checkbox" name="mortgage" id="mortgage" /> I need mortgage </label>
+	</div>
+	
+	<div class="subform" id="subform_mortgage" style="display:none">
+		Maximum monthly payment:<br />
+		<input type="text" name="month_payment" />
+		<select name="currency">
+			<option>US Dollars</option>
+			<option>Euros</option>
+			<option>Russian Roubles</option>
+			<option>GB Pounds</option>
+		</select>
+	</div>
 </form>
 <script type="text/javascript">
 $(function() {
-	$('#estate_type').cond('<3', '#subform_rooms,#subform_features').cond(3, '#subform_floors').cond(5, '#area_hectares').cond(4, '#subform_use')
+	$('#estate_type').cond('<3', '#subform_rooms,#subform_features').cond(3, '#subform_floors').cond(5, '#area_hectares').cond(4, '#subform_use').cond(function(x) { return x % 2 == 1 }, '#subform_need_mortgage') 
 	$('.show_area').cond('#subform_area')
 	$('#estate_type').cond('2', '[for=inet],[for=furniture],[for=tv],[for=fridge],[for=laundry]')
 	$('select[name=region]').cond(77, '#77').cond(54, '#54').cond(24, '#24')
 	$('#54_city_select').cond('#54_city')
-	$('#x').cond(10, '#test')
+	$('#mortgage').cond('#subform_mortgage')
+	
 
 	$('#rooms_any').change(function() {
 		if (this.checked)
